@@ -5,6 +5,8 @@ namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 use Eegusakov\GeoSearch\Dto\GeoDto;
 use Eegusakov\GeoSearch\GeoSearchInterface;
 use Exception;
+use Laminas\Diactoros\Request;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
 /**
@@ -39,19 +41,20 @@ class WeatherApiGeoSearch implements GeoSearchInterface
     /**
      * @param string $query
      * @return GeoDto|null
-     * @throws Exception
+     * @throws Exception|ClientExceptionInterface
      */
     public function search(string $query): ?GeoDto
     {
-        $resp = $this->httpClient->get('https://api.weatherapi.com/v1/timezone.json', [
-            'query' => [
+        $url = 'https://api.weatherapi.com/v1/timezone.json?' . http_build_query([
                 'key' => $this->apiKey,
                 'lang' => $this->options['lang'] ?? 'RU',
                 'q' => $query
-            ]
         ]);
 
-        $data = json_decode($resp->getBody()->getContents(), true);
+        $request  = new Request($url, 'GET');
+        $response = $this->httpClient->sendRequest($request);
+
+        $data = json_decode($response->getBody()->getContents(), true);
 
         if (empty($data)) {
             return null;
