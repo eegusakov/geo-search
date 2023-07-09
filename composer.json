@@ -1,0 +1,24 @@
+{
+    "name": "eegusakov/geo-search",
+    "description": "A library for finding location information, including geographic points, name, region, country, and time zone information.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gusakov Egor",
+            "email": "job.gusakovegor@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "psr/http-client": "^1.0",
+        "psr/simple-cache": "^3.0",
+        "psr/log": "^3.0",
+        "guzzlehttp/guzzle": "^7.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eegusakov\\GeoSearch\\": "src/"
+        }
+    }
+}
