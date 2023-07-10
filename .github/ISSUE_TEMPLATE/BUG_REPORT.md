@@ -1,6 +1,7 @@
-
-| Name       | About               | Labels |
-|------------|---------------------|--------|
-| Bug Report | Create a bug report | bug    |
+---
+name: Bug Report
+about: Create a bug report
+labels: Bug
+---
 
 Write your bug report here.
