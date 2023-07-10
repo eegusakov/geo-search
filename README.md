@@ -1,6 +1,11 @@
 # Geo Search
 
-**Geo Search** - библиотека, которая позволит вам определить географическое раположение объекта, на основании переданных вами данных.
+![GitHub](https://img.shields.io/github/license/eegusakov/geo-search)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eegusakov/geo-search)
+![GitHub all releases](https://img.shields.io/github/downloads/eegusakov/geo-search/total)
+![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
+
+**Geo Search** - PHP библиотека, которая позволит вам определить географическое расположение объекта, на основании переданных вами данных.
 
 Для поиска используются API сторонних сервисов, поэтому входные данные для поиска могут отличаться в зависимости от сервиса. Весь перечень доступных сервисов указан ниже.
 
@@ -157,6 +162,12 @@ $geoSearchChain = new ChainGeoSearch(
 $geo = $geoSearchChain->search('Москва');
 ```
 
+## Сотрудничество
+
+Pull requests приветствуются. Что касается серьезных изменений, пожалуйста, сначала откройте проблему, чтобы обсудить, что вы хотели бы изменить.
+
+Пожалуйста, не забудьте соответствующим образом обновить тесты.
+
 ## Лицензия
 
-Geo Search предоставляется по лицензии MIT (MIT). Пожалуйста, посмотри [файл лицензии](LICENSE), чтобы получить больше информации.
+Geo Search предоставляется по лицензии MIT. Пожалуйста, посмотри [LICENSE](LICENSE), чтобы получить больше информации.
