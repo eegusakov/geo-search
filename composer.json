@@ -1,6 +1,6 @@
 {
     "name": "eegusakov/geo-search",
-    "description": "A library for finding location information, including geographic points, name, region, country, and time zone information.",
+    "description": "A PHP library for finding location information, including geographic points, name, region, country, and time zone information.",
     "type": "library",
     "license": "MIT",
     "authors": [
