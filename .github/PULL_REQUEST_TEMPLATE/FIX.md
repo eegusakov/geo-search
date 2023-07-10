@@ -1,5 +1,7 @@
-| Name       | About                     | Labels |
-|------------|---------------------------|--------|
-| 🐞 Bug Fix | You have a fix for a bug? | bug    |
+---
+name: 🐞 Bug Fix
+about:  You have a fix for a bug?
+labels: type/bug
+---
 
 Write your info.
