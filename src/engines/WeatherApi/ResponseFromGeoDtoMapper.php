@@ -4,7 +4,7 @@ namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 
 use DateTime;
 use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Engines\MapperInterface;
+use Eegusakov\GeoSearch\Interfaces\MapperInterface;
 use Exception;
 
 /**

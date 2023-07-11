@@ -1,6 +1,6 @@
 <?php
 
-namespace Eegusakov\GeoSearch\Handlers;
+namespace Eegusakov\GeoSearch\Interfaces;
 
 /**
  * Interface describing the structure of error handlers

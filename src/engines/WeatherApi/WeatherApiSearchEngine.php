@@ -3,7 +3,7 @@
 namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\GeoSearchInterface;
+use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
 use Exception;
 use Laminas\Diactoros\Request;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -14,7 +14,7 @@ use Psr\Http\Client\ClientInterface;
  *
  * @link https://www.weatherapi.com/api-explorer.aspx#tz
  */
-class WeatherApiGeoSearch implements GeoSearchInterface
+class WeatherApiSearchEngine implements SearchEngineInterface
 {
     /**
      * Here is an example of creating a geo search using the WeatherApi service:

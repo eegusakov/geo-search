@@ -3,21 +3,22 @@
 namespace Eegusakov\GeoSearch;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
+use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * A class that allows you to receive write and retrieve data from the cache
  */
-class CacheGeoSearch implements GeoSearchInterface
+class CacheSearchEngine implements SearchEngineInterface
 {
     /**
-     * @param GeoSearchInterface $next
+     * @param SearchEngineInterface $next
      * @param CacheInterface $cache
      * @param int $ttl
      */
     public function __construct(
-      private GeoSearchInterface $next,
+      private SearchEngineInterface $next,
       private CacheInterface $cache,
       private int $ttl,
     ) {

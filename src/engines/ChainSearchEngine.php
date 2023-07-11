@@ -3,14 +3,15 @@
 namespace Eegusakov\GeoSearch;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
+use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
 
 /**
  * The class allows you to use several engines at once to search for a geographical object.
  * In this case, the first result with a non-empty result will be returned as a response.
  */
-class ChainGeoSearch implements GeoSearchInterface
+class ChainSearchEngine implements SearchEngineInterface
 {
-    /** @var GeoSearchInterface[] $searchEngines */
+    /** @var SearchEngineInterface[] $searchEngines */
     private array $searchEngines;
 
     /**
@@ -31,10 +32,10 @@ class ChainGeoSearch implements GeoSearchInterface
      *         )
      *     );
      *
-     * @param array{GeoSearchInterface[]} $searchEngines
+     * @param array{SearchEngineInterface[]} $searchEngines
      */
     public function __construct(
-        GeoSearchInterface ...$searchEngines
+        SearchEngineInterface ...$searchEngines
     ) {
         $this->searchEngines = $searchEngines;
     }

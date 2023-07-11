@@ -42,22 +42,23 @@ composer require eegusakov/geo-search
 6. название города
 
 Пример:
+
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-$weatherApiGeoSearch = new WeatherApiGeoSearch(
+$weatherApiSearchEngine = new WeatherApiSearchEngine(
     '<API_TOKEN>',
     new Client(),
     new ResponseFromGeoDtoMapper()
 );
 
-$geoByCity = $weatherApiGeoSearch->search('Москва');
+$geoByCity = $weatherApiSearchEngine->search('Москва');
 
-$geoByCoordinates = $weatherApiGeoSearch->search('53,-0.12');
+$geoByCoordinates = $weatherApiSearchEngine->search('53,-0.12');
 
-$geoByZipCode = $weatherApiGeoSearch->search('90201');
+$geoByZipCode = $weatherApiSearchEngine->search('90201');
 ```
 
 ## Дополнительные возможности
@@ -67,25 +68,25 @@ $geoByZipCode = $weatherApiGeoSearch->search('90201');
 Данная библиотека позволяет использовать сразу несколько сервисов и получить результат первого сервиса вернувшего не пустой ответ.
 
 ```php
-use Eegusakov\GeoSearch\ChainGeoSearch;
+use Eegusakov\GeoSearch\ChainSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
 
-$geoSearchChain = new ChainGeoSearch(
-    new WeatherApiGeoSearch(
+$chainSearchEngine = new ChainSearchEngine(
+    new WeatherApiSearchEngine(
         '<API_TOKEN_1>',
         new Client(),
         new ResponseFromGeoDtoMapper()
     ),
-    new WeatherApiGeoSearch(
+    new WeatherApiSearchEngine(
         '<API_TOKEN_2>',
         new Client(),
         new ResponseFromGeoDtoMapper()
     )
 );
 
-$geo = $geoSearchChain->search('Москва');
+$geo = $chainSearchEngine->search('Москва');
 ```
 
 **2. Возможность игнорирования ошибок**
@@ -98,14 +99,14 @@ ErrorHandler обрабатывает все ошибки и записывае�
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteGeoSearch;
+use Eegusakov\GeoSearch\MuteSearchEngine;
 use Eegusakov\GeoSearch\Handlers\ErrorHandler;
 use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-$geoSearchMute = new MuteGeoSearch(
-    new WeatherApiGeoSearch(
+$muteSearchEngine = new MuteSearchEngine(
+    new WeatherApiSearchEngine(
         '<API_TOKEN>',
         new Client(),
         new ResponseFromGeoDtoMapper()
@@ -115,7 +116,7 @@ $geoSearchMute = new MuteGeoSearch(
     )
 );
 
-$geo = $geoSearchMute->search('Москва');
+$geo = $muteSearchEngine->search('Москва');
 ```
 
 **3. Возможность кэшировать результат ответа**
@@ -127,18 +128,19 @@ $geo = $geoSearchMute->search('Москва');
 ```
 
 **4. Возможность комбинировать 1-й, 2-й и 3-й пункт**
+
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteGeoSearch;
-use Eegusakov\GeoSearch\ChainGeoSearch;
+use Eegusakov\GeoSearch\MuteSearchEngine;
+use Eegusakov\GeoSearch\ChainSearchEngine;
 use Eegusakov\GeoSearch\Handlers\ErrorHandler;
 use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-$geoSearchChain = new ChainGeoSearch(
-    new MuteGeoSearch(
-        new WeatherApiGeoSearch(
+$chainSearchEngine = new ChainSearchEngine(
+    new MuteSearchEngine(
+        new WeatherApiSearchEngine(
             '<API_TOKEN_1>',
             new Client(),
             new ResponseFromGeoDtoMapper()
@@ -147,8 +149,8 @@ $geoSearchChain = new ChainGeoSearch(
             new ConsoleLogger()
         )
     ),
-    new MuteGeoSearch(
-        new WeatherApiGeoSearch(
+    new MuteSearchEngine(
+        new WeatherApiSearchEngine(
             '<API_TOKEN_2>',
             new Client(),
             new ResponseFromGeoDtoMapper()
@@ -159,7 +161,7 @@ $geoSearchChain = new ChainGeoSearch(
     )
 );
 
-$geo = $geoSearchChain->search('Москва');
+$geo = $chainSearchEngine->search('Москва');
 ```
 
 ## Сотрудничество

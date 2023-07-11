@@ -2,6 +2,7 @@
 
 namespace Eegusakov\GeoSearch\Handlers;
 
+use Eegusakov\GeoSearch\Interfaces\ErrorHandlerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace Eegusakov\GeoSearch\Interfaces;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
 
