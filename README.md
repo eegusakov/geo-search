@@ -68,7 +68,7 @@ $geoByZipCode = $weatherApiSearchEngine->search('90201');
 Данная библиотека позволяет использовать сразу несколько сервисов и получить результат первого сервиса вернувшего не пустой ответ.
 
 ```php
-use Eegusakov\GeoSearch\ChainSearchEngine;
+use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
@@ -99,7 +99,7 @@ ErrorHandler обрабатывает все ошибки и записывае�
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteSearchEngine;
+use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
 use Eegusakov\GeoSearch\Handlers\ErrorHandler;
 use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
@@ -131,8 +131,8 @@ $geo = $muteSearchEngine->search('Москва');
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteSearchEngine;
-use Eegusakov\GeoSearch\ChainSearchEngine;
+use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
+use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
 use Eegusakov\GeoSearch\Handlers\ErrorHandler;
 use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
