@@ -16,9 +16,13 @@
         "psr/log": "^3.0",
         "laminas/laminas-diactoros": "^3.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
     "autoload": {
-        "psr-4": {
-            "Eegusakov\\GeoSearch\\": "src/"
-        }
+        "psr-4": {"Eegusakov\\GeoSearch\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Eegusakov\\GeoSearch\\": "tests/"}
     }
 }
