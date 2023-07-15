@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Loggers;
 
 use PHPUnit\Framework\TestCase;
 
-class ConsoleLoggerTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ConsoleLoggerTest extends TestCase
 {
-    /** @var ConsoleLogger $logger */
     private ConsoleLogger $logger;
 
     protected function setUp(): void
@@ -15,10 +21,7 @@ class ConsoleLoggerTest extends TestCase
     }
 
     /**
-     * @dataProvider messageProvider
-     * @param string $methodName
-     * @param string $expected
-     * @return void
+     * @dataProvider providePrintMessageCases
      */
     public function testPrintMessage(string $methodName, string $expected): void
     {
@@ -27,9 +30,6 @@ class ConsoleLoggerTest extends TestCase
         $this->expectOutputString($expected);
     }
 
-    /**
-     * @return void
-     */
     public function testPrintMessageLogWithLevel(): void
     {
         $this->logger->log(3, 'level three');
@@ -37,7 +37,7 @@ class ConsoleLoggerTest extends TestCase
         $this->expectOutputString("\e[39m[LOG][3] level three" . PHP_EOL);
     }
 
-    public function messageProvider(): \Generator
+    public function providePrintMessageCases(): \Generator
     {
         yield ['emergency', "\e[31m[EMERGENCY] emergency" . PHP_EOL];
         yield ['alert', "\e[34m[ALERT] alert" . PHP_EOL];

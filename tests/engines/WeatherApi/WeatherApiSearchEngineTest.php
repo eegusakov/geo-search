@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 
 use Laminas\Diactoros\Response;
@@ -8,11 +10,16 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-class WeatherApiSearchEngineTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class WeatherApiSearchEngineTest extends TestCase
 {
     private StreamFactoryInterface $streamFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->streamFactory = new StreamFactory();
     }
@@ -28,7 +35,7 @@ class WeatherApiSearchEngineTest extends TestCase
                 'country' => 'Russia',
                 'tz_id' => 'Europe/Moscow',
                 'localtime' => '2023-07-12 0:11',
-            ]
+            ],
         ]);
 
         $response = new Response();
@@ -56,8 +63,8 @@ class WeatherApiSearchEngineTest extends TestCase
         $data = json_encode([
             'error' => [
                 'code' => 1006,
-                'message' => 'No matching location found.'
-            ]
+                'message' => 'No matching location found.',
+            ],
         ]);
 
         $response = new Response();

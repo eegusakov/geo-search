@@ -1,36 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
 use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
 use PHPUnit\Framework\TestCase;
 
-class ChainSearchEngineTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ChainSearchEngineTest extends TestCase
 {
     public function testSuccess(): void
     {
         $chainSearchEngine = new ChainSearchEngine(
             $this->mockGeoSearchEngines(null),
             $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines($expected = new GeoDto(
-                55.75,
-                37.62,
-                'Moscow',
-                'Moscow City',
-                'Russia',
-                'Europe/Moscow',
-                new \DateTime('2023-07-12 0:11'))
+            $this->mockGeoSearchEngines(
+                $expected = new GeoDto(
+                    55.75,
+                    37.62,
+                    'Moscow',
+                    'Moscow City',
+                    'Russia',
+                    'Europe/Moscow',
+                    new \DateTimeImmutable('2023-07-12 0:11')
+                )
             ),
             $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(new GeoDto(
-                51.52,
-                -0.11,
-                'London',
-                'City of London, Greater London',
-                'United Kingdom',
-                'Europe/London',
-                new \DateTime('2023-07-11 22:14'))
+            $this->mockGeoSearchEngines(
+                new GeoDto(
+                    51.52,
+                    -0.11,
+                    'London',
+                    'City of London, Greater London',
+                    'United Kingdom',
+                    'Europe/London',
+                    new \DateTimeImmutable('2023-07-11 22:14')
+                )
             ),
         );
 

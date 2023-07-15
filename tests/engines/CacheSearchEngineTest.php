@@ -49,7 +49,7 @@ final class CacheSearchEngineTest extends TestCase
         $geoWithCache = $cacheSearchEngine->search('Moscow');
         $geoWithNewKey = $cacheSearchEngine->search('Moscow New Key');
 
-        self::assertEquals($geoWithoutCache, $geoWithCache);
-        self::assertNotEquals($geoWithNewKey, $geoWithCache);
+        $this->assertEquals($geoWithoutCache, $geoWithCache);
+        $this->assertNotEquals($geoWithNewKey, $geoWithCache);
     }
 }

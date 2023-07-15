@@ -20,7 +20,6 @@ return (new \PhpCsFixer\Config())
         '@PHP80Migration' => true,
         '@PHP80Migration:risky' => true,
         '@PHPUnit84Migration:risky' => true,
-
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
 
@@ -69,6 +68,7 @@ return (new \PhpCsFixer\Config())
                 'method_private',
             ],
         ],
+        'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
         'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
     ]);
