@@ -54,6 +54,10 @@ class WeatherApiSearchEngine implements SearchEngineInterface
         $request  = new Request($url, 'GET');
         $response = $this->httpClient->sendRequest($request);
 
+        if ($response->getStatusCode() !== 200) {
+            return null;
+        }
+
         $data = json_decode($response->getBody()->getContents(), true);
 
         if (empty($data)) {

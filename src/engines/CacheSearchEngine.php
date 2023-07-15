@@ -29,17 +29,13 @@ class CacheSearchEngine implements SearchEngineInterface
      */
     public function search(string $query): ?GeoDto
     {
-       if ($this->cache->has($query)) {
-           return $this->cache->get($query);
-       }
+        $geo = $this->cache->get($query);
 
-       $geo = $this->next->search($query);
-       if (null !== $geo) {
-           $this->cache->set($query, $geo, $this->ttl);
+        if (null === $geo) {
+            $geo = $this->next->search($query);
+            $this->cache->set($query, $geo, $this->ttl);
+        }
 
-           return $geo;
-       }
-
-       return null;
+       return $geo;
     }
 }
