@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines;
 
 use Eegusakov\GeoSearch\Cache\TestCache;
@@ -8,7 +10,12 @@ use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 
-class CacheSearchEngineTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CacheSearchEngineTest extends TestCase
 {
     private CacheInterface $cache;
 
@@ -28,7 +35,7 @@ class CacheSearchEngineTest extends TestCase
                 'Moscow City',
                 'Russia',
                 'Europe/Moscow',
-                new \DateTime()
+                new \DateTimeImmutable()
             );
         });
 
@@ -42,7 +49,7 @@ class CacheSearchEngineTest extends TestCase
         $geoWithCache = $cacheSearchEngine->search('Moscow');
         $geoWithNewKey = $cacheSearchEngine->search('Moscow New Key');
 
-        $this->assertEquals($geoWithoutCache, $geoWithCache);
-        $this->assertNotEquals($geoWithNewKey, $geoWithCache);
+        self::assertEquals($geoWithoutCache, $geoWithCache);
+        self::assertNotEquals($geoWithNewKey, $geoWithCache);
     }
 }

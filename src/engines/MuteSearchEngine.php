@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
 use Eegusakov\GeoSearch\Interfaces\ErrorHandlerInterface;
 use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
-use Exception;
 
 /**
  * A class that allows you to ignore exceptions that occurred when searching for geographic objects.
  */
-class MuteSearchEngine implements SearchEngineInterface
+final class MuteSearchEngine implements SearchEngineInterface
 {
     /**
      * MuteGeoSearch accepts a search engine whose errors must be ignored.
@@ -27,9 +28,6 @@ class MuteSearchEngine implements SearchEngineInterface
      *             new ConsoleLogger()
      *         )
      *     );
-     *
-     * @param SearchEngineInterface $next
-     * @param ErrorHandlerInterface $handler
      */
     public function __construct(
         private SearchEngineInterface $next,
@@ -37,15 +35,11 @@ class MuteSearchEngine implements SearchEngineInterface
     ) {
     }
 
-    /**
-     * @param string $query
-     * @return GeoDto|null
-     */
     public function search(string $query): ?GeoDto
     {
         try {
             return $this->next->search($query);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->handler->handle($e);
         }
 

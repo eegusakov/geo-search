@@ -1,23 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
 use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
-use Exception;
 use Laminas\Diactoros\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
 /**
- * The class contains all the basic logic for searching for geographical objects through the WeatherAPI service
+ * The class contains all the basic logic for searching for geographical objects through the WeatherAPI service.
  *
- * @link https://www.weatherapi.com/api-explorer.aspx#tz
+ * @see https://www.weatherapi.com/api-explorer.aspx#tz
  */
-class WeatherApiSearchEngine implements SearchEngineInterface
+final class WeatherApiSearchEngine implements SearchEngineInterface
 {
     /**
-     * Here is an example of creating a geo search using the WeatherApi service:
+     * Here is an example of creating a geo search using the WeatherApi service:.
      *
      *     $weatherApiGeoSearch = new WeatherApiGeoSearch(
      *         '<API_TOKEN>',
@@ -25,9 +26,6 @@ class WeatherApiSearchEngine implements SearchEngineInterface
      *         new ResponseFromGeoDtoMapper()
      *     )
      *
-     * @param string $apiKey
-     * @param ClientInterface $httpClient
-     * @param ResponseFromGeoDtoMapper $mapper
      * @param array{lang: string} $options
      */
     public function __construct(
@@ -39,22 +37,20 @@ class WeatherApiSearchEngine implements SearchEngineInterface
     }
 
     /**
-     * @param string $query
-     * @return GeoDto|null
-     * @throws Exception|ClientExceptionInterface
+     * @throws ClientExceptionInterface|\Exception
      */
     public function search(string $query): ?GeoDto
     {
         $url = 'https://api.weatherapi.com/v1/timezone.json?' . http_build_query([
-                'key' => $this->apiKey,
-                'lang' => $this->options['lang'] ?? 'RU',
-                'q' => $query
+            'key' => $this->apiKey,
+            'lang' => $this->options['lang'] ?? 'RU',
+            'q' => $query,
         ]);
 
         $request  = new Request($url, 'GET');
         $response = $this->httpClient->sendRequest($request);
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             return null;
         }
 

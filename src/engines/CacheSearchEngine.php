@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
@@ -8,19 +10,14 @@ use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
- * A class that allows you to receive write and retrieve data from the cache
+ * A class that allows you to receive write and retrieve data from the cache.
  */
-class CacheSearchEngine implements SearchEngineInterface
+final class CacheSearchEngine implements SearchEngineInterface
 {
-    /**
-     * @param SearchEngineInterface $next
-     * @param CacheInterface $cache
-     * @param int $ttl
-     */
     public function __construct(
-      private SearchEngineInterface $next,
-      private CacheInterface $cache,
-      private int $ttl,
+        private SearchEngineInterface $next,
+        private CacheInterface $cache,
+        private int $ttl,
     ) {
     }
 
@@ -38,6 +35,6 @@ class CacheSearchEngine implements SearchEngineInterface
             $this->cache->set($key, $geo, $this->ttl);
         }
 
-       return $geo;
+        return $geo;
     }
 }
