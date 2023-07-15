@@ -24,5 +24,8 @@
     },
     "autoload-dev": {
         "psr-4": {"Eegusakov\\GeoSearch\\": "tests/"}
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
     }
 }

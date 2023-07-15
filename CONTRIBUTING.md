@@ -18,7 +18,11 @@ We are always happy to fix bugs or improve the current codebase. New functionali
 
 ## Testing
 
-Please include test for every change or addition to the code.
+Please include test for every change or addition to the code. To run the complete test suite:
+
+```bash
+composer test
+```
 
 ## Coding Style
 
