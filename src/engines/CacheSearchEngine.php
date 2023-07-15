@@ -29,11 +29,13 @@ class CacheSearchEngine implements SearchEngineInterface
      */
     public function search(string $query): ?GeoDto
     {
-        $geo = $this->cache->get($query);
+        $key = 'geo_search_' . str_replace(' ', '_', $query);
+
+        $geo = $this->cache->get($key);
 
         if (null === $geo) {
-            $geo = $this->next->search($query);
-            $this->cache->set($query, $geo, $this->ttl);
+            $geo = $this->next->search($key);
+            $this->cache->set($key, $geo, $this->ttl);
         }
 
        return $geo;
