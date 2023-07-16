@@ -16,9 +16,18 @@
         "psr/log": "^3.0",
         "laminas/laminas-diactoros": "^3.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "friendsofphp/php-cs-fixer": "^3.21"
+    },
     "autoload": {
-        "psr-4": {
-            "Eegusakov\\GeoSearch\\": "src/"
-        }
+        "psr-4": {"Eegusakov\\GeoSearch\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Eegusakov\\GeoSearch\\": "tests/"}
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit --colors=always",
+        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes"
     }
 }

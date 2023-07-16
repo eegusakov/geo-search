@@ -5,107 +5,112 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/eegusakov/geo-search/total)
 ![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
 
-**Geo Search** - PHP библиотека, которая позволит вам определить географическое расположение объекта, на основании переданных вами данных.
+Language: ENG, [RUS](docs/ru/README.md)
 
-Для поиска используются API сторонних сервисов, поэтому входные данные для поиска могут отличаться в зависимости от сервиса. Весь перечень доступных сервисов указан ниже.
+**Geo Search** - PHP library that will allow you to determine the geographical location of an object based on the transmitted data.
 
-## Совместимость с PSR
-Для обеспечения http запросов подойдет любой клиент, совместимый с PSR-18. В примерах будет использоваться библиотека [Guzzle](https://github.com/guzzle/guzzle)
+Third-party service APIs are used for the search, so the input data for the search may differ depending on the service. The entire list of available services is listed below.
 
-Для обеспечения работы с кэшем подойдет любой клиент, совместимый с PSR-16. В примерах будет использоваться библиотек [SymfonyCache](https://github.com/symfony/cache)
+## Compatible with PSR
+Any client compatible with PSR-18 is suitable for providing http requests. The examples will use the library [Guzzle](https://github.com/guzzle/guzzle)
 
-Для логирования ошибок подойдет любой клиент, совместимый с PSR-3 ([Monolog](https://github.com/Seldaek/monolog) и тд.). В примерах будет использоваться ,входящий в текущую библиотеку, ConsoleLogger.
+Any client compatible with PSP-16 is suitable for working with the cache. The examples will use libraries [SymfonyCache](https://github.com/symfony/cache)
 
-## Установка Geo Search
+Any client compatible with PSR-3 is suitable for error logging ([Monolog](https://github.com/Seldaek/monolog ) and so on.). The examples will use the ConsoleLogger included in the current library.
 
-Рекомендуемый способ установки Geo Search — через
-[Composer](https://getcomposer.org/).
+## Getting started
+
+### Installing Geo Search
+
+The recommended way to install Geo Search is via
+[Composer](http://getcomposer.org/).
 
 ```bash
 composer require eegusakov/geo-search
 ```
 
-## Сервисы
-Внимание для работы с каждым сервисов необходимо получить токен доступа к API. Для его получения перейдите по ссылке приложенной к конкретному сервису
+### Services
+Attention, to work with each service, you need to get an API access token. To get it, follow the link attached to a specific service
 
-### WeatherApi
-Ссылка на сервис: https://www.weatherapi.com/my/
+#### 1. WeatherApi
+Link to the service: https://www.weatherapi.com/my/
 
-Ссылка на документацию: https://www.weatherapi.com/api-explorer.aspx#tz
+Link to documentation: https://www.weatherapi.com/api-explorer.aspx#tz
 
-Производит поиск по следующим данным:
-1. почтовый индекс США,
-2. почтовый индекс Великобритании,
-3. почтовый индекс Канады,
-4. IP-адрес,
-5. широта/долгота (десятичный градус)
-6. название города
+Performs a search on the following data:
+1. US postal code,
+2. UK postal code,
+3. postal code of Canada,
+4. IP address,
+5. latitude/longitude (decimal degree),
+6. name of the city;
 
-Пример:
+Example:
+
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-$weatherApiGeoSearch = new WeatherApiGeoSearch(
+$weatherApiSearchEngine = new WeatherApiSearchEngine(
     '<API_TOKEN>',
     new Client(),
     new ResponseFromGeoDtoMapper()
 );
 
-$geoByCity = $weatherApiGeoSearch->search('Москва');
+$geoByCity = $weatherApiSearchEngine->search('Moscow');
 
-$geoByCoordinates = $weatherApiGeoSearch->search('53,-0.12');
+$geoByCoordinates = $weatherApiSearchEngine->search('53,-0.12');
 
-$geoByZipCode = $weatherApiGeoSearch->search('90201');
+$geoByZipCode = $weatherApiSearchEngine->search('90201');
 ```
 
-## Дополнительные возможности
+### Additional features
 
-**1. Использование сразу несколько сервисов**
+**1. Using multiple services at once**
 
-Данная библиотека позволяет использовать сразу несколько сервисов и получить результат первого сервиса вернувшего не пустой ответ.
+This library allows you to use several services at once and get the result of the first service that returned a non-empty response.
 
 ```php
-use Eegusakov\GeoSearch\ChainGeoSearch;
+use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
 
-$geoSearchChain = new ChainGeoSearch(
-    new WeatherApiGeoSearch(
+$chainSearchEngine = new ChainSearchEngine(
+    new WeatherApiSearchEngine(
         '<API_TOKEN_1>',
         new Client(),
         new ResponseFromGeoDtoMapper()
     ),
-    new WeatherApiGeoSearch(
+    new WeatherApiSearchEngine(
         '<API_TOKEN_2>',
         new Client(),
         new ResponseFromGeoDtoMapper()
     )
 );
 
-$geo = $geoSearchChain->search('Москва');
+$geo = $chainSearchEngine->search('Moscow');
 ```
 
-**2. Возможность игнорирования ошибок**
+**2. The ability to ignore errors**
 
-Функционал актуален, когда есть необходимость игнорировать ошибки и переходить к следующему запросу.
+The functionality is relevant when there is a need to ignore errors and move on to the next request.
 
-ErrorHandler обрабатывает все ошибки и записывает их в лог, в библиотеке включен базовый logger, который просто выводит информацию в консоль (ConsoleLogger).
+ErrorHandler processes all errors and writes them to the log, the library includes a basic logger that simply outputs information to the console (ConsoleLogger).
 
-Для логирования подойдет любой клиент, совместимый с PSR-3.
+Any client compatible with PSR-3 is suitable for logging.
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteGeoSearch;
+use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
 use Eegusakov\GeoSearch\Handlers\ErrorHandler;
 use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-$geoSearchMute = new MuteGeoSearch(
-    new WeatherApiGeoSearch(
+$muteSearchEngine = new MuteSearchEngine(
+    new WeatherApiSearchEngine(
         '<API_TOKEN>',
         new Client(),
         new ResponseFromGeoDtoMapper()
@@ -115,59 +120,86 @@ $geoSearchMute = new MuteGeoSearch(
     )
 );
 
-$geo = $geoSearchMute->search('Москва');
+$geo = $muteSearchEngine->search('Moscow');
 ```
 
-**3. Возможность кэшировать результат ответа**
+**3. Ability to cache the response result**
 
-Для работы с кэшем подойдет любой клиент, совместимый с PSR-16. В примере будет использоваться SymfonyCache.
+Any client compatible with PSP-16 is suitable for working with the cache. The example will use [SymfonyCache](https://symfony.com/doc/current/components/cache.html).
 
 ```php
-
-```
-
-**4. Возможность комбинировать 1-й, 2-й и 3-й пункт**
-```php
-use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\MuteGeoSearch;
-use Eegusakov\GeoSearch\ChainGeoSearch;
-use Eegusakov\GeoSearch\Handlers\ErrorHandler;
-use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiGeoSearch;
 use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
+use Symfony\Component\Cache\Psr16Cache;
+use GuzzleHttp\Client;
 
-$geoSearchChain = new ChainGeoSearch(
-    new MuteGeoSearch(
-        new WeatherApiGeoSearch(
-            '<API_TOKEN_1>',
-            new Client(),
-            new ResponseFromGeoDtoMapper()
-        ),
-        new ErrorHandler(
-            new ConsoleLogger()
-        )
+$cacheSearchEngine = new CacheSearchEngine(
+    new WeatherApiSearchEngine(
+        '<API_TOKEN>',
+        new Client(),
+        new ResponseFromGeoDtoMapper()
     ),
-    new MuteGeoSearch(
-        new WeatherApiGeoSearch(
-            '<API_TOKEN_2>',
-            new Client(),
-            new ResponseFromGeoDtoMapper()
-        ),
-        new ErrorHandler(
-            new ConsoleLogger()
-        )
-    )
+    new Psr16Cache(
+        new FilesystemAdapter()
+    ),
+    60
 );
 
-$geo = $geoSearchChain->search('Москва');
+$geo = $cacheSearchEngine->search('Moscow');
 ```
 
-## Сотрудничество
+**4. The ability to combine the 1st, 2nd and 3rd item**
 
-Pull requests приветствуются. Что касается серьезных изменений, пожалуйста, сначала откройте проблему, чтобы обсудить, что вы хотели бы изменить.
+```php
+use GuzzleHttp\Client;
+use Symfony\Component\Cache\Psr16Cache;
+use Eegusakov\GeoSearch\Handlers\ErrorHandler;
+use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
+use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
+use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
+use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
-Пожалуйста, не забудьте соответствующим образом обновить тесты.
+$cacheChainMuteSearchEngine = new CacheSearchEngine(
+    new ChainSearchEngine(
+        new MuteSearchEngine(
+            new WeatherApiSearchEngine(
+                'API_TOKEN_1',
+                new Client(),
+                new ResponseFromGeoDtoMapper()
+            ),
+            new ErrorHandler(
+                new ConsoleLogger()
+            )
+        ),
+        new MuteSearchEngine(
+            new WeatherApiSearchEngine(
+                'API_TOKEN_2',
+                new Client(),
+                new ResponseFromGeoDtoMapper()
+            ),
+            new ErrorHandler(
+                new ConsoleLogger()
+            )
+        )
+    ),
+    new Psr16Cache(
+        new FilesystemAdapter()
+    ),
+    60
+);
 
-## Лицензия
+$geo = $cacheChainMuteSearchEngine->search('Moscow');
+```
 
-Geo Search предоставляется по лицензии MIT. Пожалуйста, посмотри [LICENSE](LICENSE), чтобы получить больше информации.
+## Cooperation
+
+Please read [CONTRIBUTING](CONTRIBUTING.md ) for more information about our code of conduct and the process of sending us merge requests.
+
+## License
+
+This project is licensed under the MIT license - see the [LICENSE](LICENSE.md) file for details
