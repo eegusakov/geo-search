@@ -31,7 +31,7 @@ final class CacheSearchEngine implements SearchEngineInterface
         $geo = $this->cache->get($key);
 
         if (null === $geo) {
-            $geo = $this->next->search($key);
+            $geo = $this->next->search($query);
             $this->cache->set($key, $geo, $this->ttl);
         }
 

@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Eegusakov\GeoSearch\Engines\WeatherApi;
 
 use Eegusakov\GeoSearch\Dto\GeoDto;
 use PHPUnit\Framework\TestCase;
 
-class ResponseFromGeoDtoMapperTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class ResponseFromGeoDtoMapperTest extends TestCase
 {
-
     public function testSuccess(): void
     {
         $data = [
@@ -19,7 +25,7 @@ class ResponseFromGeoDtoMapperTest extends TestCase
                 'country' => 'Russia',
                 'tz_id' => 'Europe/Moscow',
                 'localtime' => '2023-07-12 0:11',
-            ]
+            ],
         ];
 
         $mapper = new ResponseFromGeoDtoMapper();
@@ -46,6 +52,6 @@ class ResponseFromGeoDtoMapperTest extends TestCase
         $this->assertIsString($geo->timezone);
 
         $this->assertSame(strtotime($data['location']['localtime']), $geo->localtime->getTimestamp());
-        $this->assertInstanceOf(\DateTime::class, $geo->localtime);
+        $this->assertInstanceOf(\DateTimeImmutable::class, $geo->localtime);
     }
 }

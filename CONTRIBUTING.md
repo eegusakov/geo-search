@@ -26,5 +26,9 @@ composer test
 
 ## Coding Style
 
-All code must follow [PSR-12](https://www.php-fig.org/psr/psr-12/). 
+All code must follow [PSR-12](https://www.php-fig.org/psr/psr-12/). Just make sure to run php-cs-fixer before submitting the code, it'll take care of the formatting for you:
+
+```bash
+composer php-cs-fixer fix
+```
 

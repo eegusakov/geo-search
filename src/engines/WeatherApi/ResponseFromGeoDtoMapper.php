@@ -26,7 +26,10 @@ final class ResponseFromGeoDtoMapper implements MapperInterface
             region: $data['location']['region'],
             country: $data['location']['country'],
             timezone: $data['location']['tz_id'],
-            localtime: new \DateTimeImmutable($data['location']['localtime']),
+            localtime: new \DateTimeImmutable(
+                $data['location']['localtime'],
+                new \DateTimeZone($data['location']['tz_id'])
+            ),
         );
     }
 }
