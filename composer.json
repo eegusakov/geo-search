@@ -27,7 +27,7 @@
         "psr-4": {"Eegusakov\\GeoSearch\\": "tests/"}
     },
     "scripts": {
-        "test": "@php vendor/bin/phpunit",
+        "test": "@php vendor/bin/phpunit --colors=always",
         "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes"
     }
 }
