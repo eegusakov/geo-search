@@ -11,11 +11,11 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Engines\ChainSearchEngine
  */
 final class ChainSearchEngineTest extends TestCase
 {
-    public function testSuccess(): void
+    public function testSearchSuccess(): void
     {
         $chainSearchEngine = new ChainSearchEngine(
             $this->mockGeoSearchEngines(null),
@@ -49,6 +49,19 @@ final class ChainSearchEngineTest extends TestCase
 
         $this->assertNotNull($actual);
         $this->assertSame($expected, $actual);
+    }
+
+    public function testSearchEmptyResult(): void
+    {
+        $chainSearchEngine = new ChainSearchEngine(
+            $this->mockGeoSearchEngines(null),
+            $this->mockGeoSearchEngines(null),
+            $this->mockGeoSearchEngines(null)
+        );
+
+        $actual = $chainSearchEngine->search('Moscow');
+
+        $this->assertNull($actual);
     }
 
     private function mockGeoSearchEngines(?GeoDto $geo): SearchEngineInterface

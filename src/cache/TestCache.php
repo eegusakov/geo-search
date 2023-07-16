@@ -10,6 +10,8 @@ use Psr\SimpleCache\CacheInterface;
  * This class is used exclusively for writing Unit tests for the CacheSearchEngine functionality.
  *
  * @internal
+ *
+ * @codeCoverageIgnore
  */
 final class TestCache implements CacheInterface
 {

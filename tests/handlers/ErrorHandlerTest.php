@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Handlers\ErrorHandler
  */
 final class ErrorHandlerTest extends TestCase
 {

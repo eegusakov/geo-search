@@ -13,7 +13,7 @@ use Psr\SimpleCache\CacheInterface;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Engines\CacheSearchEngine
  */
 final class CacheSearchEngineTest extends TestCase
 {

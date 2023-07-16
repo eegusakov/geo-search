@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Engines\MuteSearchEngine
  */
 final class MuteSearchEngineTest extends TestCase
 {

@@ -13,7 +13,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine
  */
 final class WeatherApiSearchEngineTest extends TestCase
 {
@@ -83,6 +83,30 @@ final class WeatherApiSearchEngineTest extends TestCase
         );
 
         $geo = $searchEngine->search('gjdfnvks');
+
+        $this->assertNull($geo);
+    }
+
+    public function testFoundEmpty(): void
+    {
+        $data = json_encode([]);
+
+        $response = new Response();
+        $response = $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200)
+            ->withBody($this->streamFactory->createStream($data));
+
+        $client = $this->createMock(ClientInterface::class);
+        $client->method('sendRequest')->willReturn($response);
+
+        $searchEngine = new WeatherApiSearchEngine(
+            '12345678',
+            $client,
+            new ResponseFromGeoDtoMapper()
+        );
+
+        $geo = $searchEngine->search('Moscow');
 
         $this->assertNull($geo);
     }

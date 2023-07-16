@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper
  */
 final class ResponseFromGeoDtoMapperTest extends TestCase
 {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @coversNothing
+ * @covers \Eegusakov\GeoSearch\Loggers\ConsoleLogger
  */
 final class ConsoleLoggerTest extends TestCase
 {
