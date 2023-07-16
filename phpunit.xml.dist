@@ -5,6 +5,9 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <coverage>
+        <report>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
         <include>
             <directory>src</directory>
         </include>
