@@ -2,7 +2,6 @@
 
 ![GitHub](https://img.shields.io/github/license/eegusakov/geo-search)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eegusakov/geo-search)
-![GitHub all releases](https://img.shields.io/github/downloads/eegusakov/geo-search/total)
 ![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
 
 Language: ENG, [RUS](docs/ru/README.md)
