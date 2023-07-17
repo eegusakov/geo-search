@@ -24,6 +24,6 @@ jobs:
         with:
           version: "9.6"
           bootstrap: vendor/autoload.php
-          configuration: test/phpunit.xml.dist
+          configuration: test/phpunit.xml
           args: --coverage-text
           php_version: "8.0"
