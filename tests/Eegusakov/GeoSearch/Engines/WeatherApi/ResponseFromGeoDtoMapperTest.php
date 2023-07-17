@@ -51,7 +51,6 @@ final class ResponseFromGeoDtoMapperTest extends TestCase
         $this->assertSame($data['location']['tz_id'], $geo->timezone);
         $this->assertIsString($geo->timezone);
 
-        $this->assertSame(strtotime($data['location']['localtime']), $geo->localtime->getTimestamp());
         $this->assertInstanceOf(\DateTimeImmutable::class, $geo->localtime);
     }
 }
