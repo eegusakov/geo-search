@@ -2,7 +2,7 @@
 
 ![GitHub](https://img.shields.io/github/license/eegusakov/geo-search)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eegusakov/geo-search)
-![GitHub all releases](https://img.shields.io/github/downloads/eegusakov/geo-search/total)
+[![CI](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml/badge.svg)](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml)
 ![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
 
 Язык: Русский, [Английский](README.md)
