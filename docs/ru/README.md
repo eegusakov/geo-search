@@ -65,6 +65,32 @@ $geoByCoordinates = $weatherApiSearchEngine->search('53,-0.12');
 $geoByZipCode = $weatherApiSearchEngine->search('90201');
 ```
 
+#### 2. OpenMeteo
+Ссылка на сервис: https://open-meteo.com/
+
+Ссылка на документацию: https://open-meteo.com/en/docs/geocoding-api
+
+Производит поиск по следующим данным:
+1. название города
+2. почтовый код
+
+Пример:
+
+```php
+use GuzzleHttp\Client;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper;
+
+$openMeteoSearchEngine = new OpenMeteoSearchEngine(
+  new Client(),
+  new ResponseFromGeoDtoMapper()
+);
+
+$geoByCity = $openMeteoSearchEngine->search('Москва');
+
+$geoByZipCode = $openMeteoSearchEngine->search('10001');
+```
+
 ### Дополнительные возможности
 
 **1. Использование сразу несколько сервисов**
@@ -73,7 +99,9 @@ $geoByZipCode = $weatherApiSearchEngine->search('90201');
 
 ```php
 use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
 
@@ -81,12 +109,16 @@ $chainSearchEngine = new ChainSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN_1>',
         new Client(),
-        new ResponseFromGeoDtoMapper()
+        new WeatherApiResponseFromGeoDtoMapper()
     ),
     new WeatherApiSearchEngine(
         '<API_TOKEN_2>',
         new Client(),
-        new ResponseFromGeoDtoMapper()
+        new WeatherApiResponseFromGeoDtoMapper()
+    ),
+    new OpenMeteoSearchEngine(
+        new Client(),
+        new OpenMeteoResponseFromGeoDtoMapper()
     )
 );
 
@@ -161,8 +193,10 @@ use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
 use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
 use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
 
 $cacheChainMuteSearchEngine = new CacheSearchEngine(
     new ChainSearchEngine(
@@ -170,17 +204,16 @@ $cacheChainMuteSearchEngine = new CacheSearchEngine(
             new WeatherApiSearchEngine(
                 'API_TOKEN_1',
                 new Client(),
-                new ResponseFromGeoDtoMapper()
+                new WeatherApiResponseFromGeoDtoMapper()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
             )
         ),
         new MuteSearchEngine(
-            new WeatherApiSearchEngine(
-                'API_TOKEN_2',
+            new OpenMeteoSearchEngine(
                 new Client(),
-                new ResponseFromGeoDtoMapper()
+                new OpenMeteoResponseFromGeoDtoMapper()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
