@@ -20,7 +20,7 @@ final class WeatherApiSearchEngine implements SearchEngineInterface
     /**
      * Here is an example of creating a geo search using the WeatherApi service:.
      *
-     *     $weatherApiGeoSearch = new WeatherApiGeoSearch(
+     *     $weatherApiGeoSearch = new WeatherApiSearchEngine(
      *         '<API_TOKEN>',
      *         new Client(),
      *         new ResponseFromGeoDtoMapper()
