@@ -66,7 +66,7 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
 
         $data = json_decode($response->getBody()->getContents(), true);
 
-        if (empty($data)) {
+        if (empty($data['results'])) {
             return null;
         }
 

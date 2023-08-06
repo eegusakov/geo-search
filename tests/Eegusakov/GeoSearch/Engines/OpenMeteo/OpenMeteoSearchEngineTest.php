@@ -137,7 +137,7 @@ final class OpenMeteoSearchEngineTest extends TestCase
 
     public function testFoundEmpty(): void
     {
-        $data = json_encode([]);
+        $data = json_encode(['generationtime_ms' => 0.18894672]);
 
         $response = new Response();
         $response = $response
