@@ -193,8 +193,10 @@ use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
 use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
 use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
 use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
+use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
 
 $cacheChainMuteSearchEngine = new CacheSearchEngine(
     new ChainSearchEngine(
@@ -202,17 +204,16 @@ $cacheChainMuteSearchEngine = new CacheSearchEngine(
             new WeatherApiSearchEngine(
                 'API_TOKEN_1',
                 new Client(),
-                new ResponseFromGeoDtoMapper()
+                new WeatherApiResponseFromGeoDtoMapper()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
             )
         ),
         new MuteSearchEngine(
-            new WeatherApiSearchEngine(
-                'API_TOKEN_2',
+            new OpenMeteoSearchEngine(
                 new Client(),
-                new ResponseFromGeoDtoMapper()
+                new OpenMeteoResponseFromGeoDtoMapper()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
