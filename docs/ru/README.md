@@ -5,7 +5,7 @@
 [![CI](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml/badge.svg)](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml)
 ![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
 
-Язык: Русский, [Английский](README.md)
+Язык: Русский, [Английский](/README.md)
 
 **Geo Search** - PHP библиотека, которая позволит вам определить географическое расположение объекта, на основании переданных данных.
 
