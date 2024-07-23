@@ -25,4 +25,4 @@ jobs:
           version: "9.6"
           bootstrap: vendor/autoload.php
           args: --coverage-text
-          php_version: "8.0"
+          php_version: "8.1"
