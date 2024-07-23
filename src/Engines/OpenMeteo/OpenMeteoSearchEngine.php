@@ -34,8 +34,7 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
         private ResponseFromGeoDtoMapper $mapper,
         private ?string $apiKey = null,
         private array $options = [],
-    ) {
-    }
+    ) {}
 
     /**
      * @throws ClientExceptionInterface|\Exception

@@ -18,8 +18,7 @@ final class CacheSearchEngine implements SearchEngineInterface
         private SearchEngineInterface $next,
         private CacheInterface $cache,
         private int $ttl,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

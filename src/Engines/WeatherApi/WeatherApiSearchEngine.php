@@ -33,8 +33,7 @@ final class WeatherApiSearchEngine implements SearchEngineInterface
         private ClientInterface $httpClient,
         private ResponseFromGeoDtoMapper $mapper,
         private array $options = [],
-    ) {
-    }
+    ) {}
 
     /**
      * @throws ClientExceptionInterface|\Exception

@@ -17,7 +17,7 @@ final class ErrorHandlerTest extends TestCase
     public function testSuccess(): void
     {
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->method('error')->willReturnCallback(function (): void {
+        $logger->method('error')->willReturnCallback(static function (): void {
             echo '[ERROR] An error occurred while searching';
         });
 
