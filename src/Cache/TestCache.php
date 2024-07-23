@@ -22,10 +22,7 @@ final class TestCache implements CacheInterface
         return $this->cache[$key] ?? null;
     }
 
-    /**
-     * @param \DateInterval|int|null $ttl
-     */
-    public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
+    public function set(string $key, mixed $value, null|\DateInterval|int $ttl = null): bool
     {
         if (null === $this->get($key)) {
             $this->cache[$key] = $value;
@@ -51,10 +48,7 @@ final class TestCache implements CacheInterface
         return null;
     }
 
-    /**
-     * @param \DateInterval|int|null $ttl
-     */
-    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
+    public function setMultiple(iterable $values, null|\DateInterval|int $ttl = null): bool
     {
         return false;
     }

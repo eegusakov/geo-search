@@ -26,6 +26,5 @@ final class GeoDto
         public string $country,
         public string $timezone,
         public \DateTimeImmutable $localtime,
-    ) {
-    }
+    ) {}
 }

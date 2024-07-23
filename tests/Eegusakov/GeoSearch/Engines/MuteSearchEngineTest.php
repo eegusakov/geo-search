@@ -49,7 +49,7 @@ final class MuteSearchEngineTest extends TestCase
         $searchEngine->method('search')->willThrowException(new \Exception());
 
         $errorHandler = $this->createMock(ErrorHandlerInterface::class);
-        $errorHandler->method('handle')->willReturnCallback(function (): void {
+        $errorHandler->method('handle')->willReturnCallback(static function (): void {
             echo '[ERROR] An error occurred while searching';
         });
 

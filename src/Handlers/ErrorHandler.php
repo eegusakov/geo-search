@@ -14,8 +14,7 @@ final class ErrorHandler implements ErrorHandlerInterface
 {
     public function __construct(
         private LoggerInterface $logger
-    ) {
-    }
+    ) {}
 
     public function handle(\Exception $exception): void
     {

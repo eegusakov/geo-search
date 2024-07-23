@@ -37,7 +37,7 @@ final class ConsoleLoggerTest extends TestCase
         $this->expectOutputString("\e[39m[LOG][3] level three" . PHP_EOL);
     }
 
-    public function providePrintMessageCases(): iterable
+    public static function providePrintMessageCases(): iterable
     {
         yield ['emergency', "\e[31m[EMERGENCY] emergency" . PHP_EOL];
         yield ['alert', "\e[34m[ALERT] alert" . PHP_EOL];

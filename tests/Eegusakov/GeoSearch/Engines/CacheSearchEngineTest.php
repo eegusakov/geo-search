@@ -27,7 +27,7 @@ final class CacheSearchEngineTest extends TestCase
     public function testSuccess(): void
     {
         $searchEngine = $this->createMock(SearchEngineInterface::class);
-        $searchEngine->method('search')->willReturnCallback(function () {
+        $searchEngine->method('search')->willReturnCallback(static function () {
             return new GeoDto(
                 55.75,
                 37.62,

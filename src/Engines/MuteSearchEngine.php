@@ -32,8 +32,7 @@ final class MuteSearchEngine implements SearchEngineInterface
     public function __construct(
         private SearchEngineInterface $next,
         private ErrorHandlerInterface $handler
-    ) {
-    }
+    ) {}
 
     public function search(string $query): ?GeoDto
     {
