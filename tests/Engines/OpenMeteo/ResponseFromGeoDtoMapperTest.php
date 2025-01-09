@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\OpenMeteo;
+namespace GeoSearch\Engines\OpenMeteo;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
+use GeoSearch\Dto\GeoDto;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper
+ * @covers \GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper
  *
  * @internal
  */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Handlers;
+namespace GeoSearch\Handlers;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Handlers\ErrorHandler
+ * @covers \GeoSearch\Handlers\ErrorHandler
  */
 final class ErrorHandlerTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\WeatherApi;
+namespace GeoSearch\Engines\WeatherApi;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\StreamFactory;
@@ -13,7 +13,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine
+ * @covers \GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine
  */
 final class WeatherApiSearchEngineTest extends TestCase
 {

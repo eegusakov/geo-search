@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\OpenMeteo;
+namespace GeoSearch\Engines\OpenMeteo;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\StreamFactory;
@@ -11,7 +11,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 /**
- * @covers \Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine
+ * @covers \GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine
  *
  * @internal
  */

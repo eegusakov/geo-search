@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Dto;
+namespace GeoSearch\Dto;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Dto\GeoDto
+ * @covers \GeoSearch\Dto\GeoDto
  */
 final class GeoDtoTest extends TestCase
 {

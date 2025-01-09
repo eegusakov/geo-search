@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\ErrorHandlerInterface;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\ErrorHandlerInterface;
+use GeoSearch\Interfaces\SearchEngineInterface;
 
 /**
  * A class that allows you to ignore exceptions that occurred when searching for geographic objects.

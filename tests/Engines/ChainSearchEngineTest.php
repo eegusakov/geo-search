@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Engines\ChainSearchEngine
+ * @covers \GeoSearch\Engines\ChainSearchEngine
  */
 final class ChainSearchEngineTest extends TestCase
 {

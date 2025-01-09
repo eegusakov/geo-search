@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\WeatherApi;
+namespace GeoSearch\Engines\WeatherApi;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
 use Laminas\Diactoros\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;

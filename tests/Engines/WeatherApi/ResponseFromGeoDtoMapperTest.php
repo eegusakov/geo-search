@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\WeatherApi;
+namespace GeoSearch\Engines\WeatherApi;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
+use GeoSearch\Dto\GeoDto;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper
+ * @covers \GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper
  */
 final class ResponseFromGeoDtoMapperTest extends TestCase
 {

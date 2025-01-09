@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\WeatherApi;
+namespace GeoSearch\Engines\WeatherApi;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\MapperInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\MapperInterface;
 
 /**
  * The class correlates the result of the Weather Api response with the GeoDto properties.

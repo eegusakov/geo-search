@@ -18,13 +18,14 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6",
-        "friendsofphp/php-cs-fixer": "^3.21"
+        "friendsofphp/php-cs-fixer": "^3.21",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
-        "psr-4": {"Eegusakov\\GeoSearch\\": "src/"}
+        "psr-4": {"GeoSearch\\": "src/"}
     },
     "autoload-dev": {
-        "psr-4": {"Eegusakov\\GeoSearch\\": "tests/"}
+        "psr-4": {"GeoSearch\\": "tests/"}
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",

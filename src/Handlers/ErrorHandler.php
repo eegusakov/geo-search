@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Handlers;
+namespace GeoSearch\Handlers;
 
-use Eegusakov\GeoSearch\Interfaces\ErrorHandlerInterface;
+use GeoSearch\Interfaces\ErrorHandlerInterface;
 use Psr\Log\LoggerInterface;
 
 /**

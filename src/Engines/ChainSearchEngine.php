@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
 
 /**
  * The class allows you to use several engines at once to search for a geographical object.

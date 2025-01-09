@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Loggers;
+namespace GeoSearch\Loggers;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @covers \Eegusakov\GeoSearch\Loggers\ConsoleLogger
+ * @covers \GeoSearch\Loggers\ConsoleLogger
  */
 final class ConsoleLoggerTest extends TestCase
 {

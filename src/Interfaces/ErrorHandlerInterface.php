@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Interfaces;
+namespace GeoSearch\Interfaces;
 
 /**
  * Interface describing the structure of error handlers.

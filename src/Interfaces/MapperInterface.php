@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Interfaces;
+namespace GeoSearch\Interfaces;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
+use GeoSearch\Dto\GeoDto;
 
 /**
  * Interface describing the structure of mappers that provide correlation of input parameters with GeoDto properties.
