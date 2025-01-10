@@ -18,8 +18,8 @@ return (new \PhpCsFixer\Config())
     ->setRules([
         '@PSR12' => true,
         '@PSR12:risky' => true,
-        '@PHP81Migration' => true,
-        '@PHP81Migration:risky' => true,
+        '@PHP82Migration' => true,
+        '@PHP82Migration:risky' => true,
         '@PHPUnit100Migration:risky' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,

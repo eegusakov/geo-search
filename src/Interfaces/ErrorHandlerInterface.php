@@ -12,5 +12,5 @@ interface ErrorHandlerInterface
     /**
      * The main method with the logic of error handling.
      */
-    public function handle(\Exception $exception): void;
+    public function handle(\Throwable $exception): void;
 }

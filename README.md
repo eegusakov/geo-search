@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/eegusakov/geo-search)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eegusakov/geo-search)
 [![CI](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml/badge.svg)](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml)
-![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
+[![PHP Version Requirement](https://img.shields.io/packagist/dependency-v/eegusakov/geo-search/php)](https://packagist.org/packages/eegusakov/geo-search)
 
 Language: ENG, [RUS](docs/ru/README.md)
 

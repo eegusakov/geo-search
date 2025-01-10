@@ -11,7 +11,7 @@ use GeoSearch\Interfaces\SearchEngineInterface;
  * The class allows you to use several engines at once to search for a geographical object.
  * In this case, the first result with a non-empty result will be returned as a response.
  */
-final class ChainSearchEngine implements SearchEngineInterface
+final readonly class ChainSearchEngine implements SearchEngineInterface
 {
     /** @var SearchEngineInterface[] $searchEngines */
     private array $searchEngines;

@@ -12,7 +12,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 /**
  * A class that allows you to receive write and retrieve data from the cache.
  */
-final class CacheSearchEngine implements SearchEngineInterface
+final readonly class CacheSearchEngine implements SearchEngineInterface
 {
     public function __construct(
         private SearchEngineInterface $next,

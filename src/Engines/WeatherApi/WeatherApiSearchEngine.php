@@ -29,9 +29,9 @@ final class WeatherApiSearchEngine implements SearchEngineInterface
      * @param array{lang: string} $options
      */
     public function __construct(
-        private string $apiKey,
-        private ClientInterface $httpClient,
-        private MapperInterface $mapper = new ResponseFromGeoDtoMapper(),
+        private readonly string $apiKey,
+        private readonly ClientInterface $httpClient,
+        private readonly MapperInterface $mapper = new ResponseFromGeoDtoMapper(),
         private array $options = [],
     ) {}
 

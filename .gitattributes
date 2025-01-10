@@ -10,3 +10,4 @@
 /.php-cs-fixer.dist.php  export-ignore
 /composer.lock           export-ignore
 /phpunit.xml.dist        export-ignore
+/rector.php              export-ignore

@@ -11,7 +11,7 @@ use GeoSearch\Interfaces\SearchEngineInterface;
 /**
  * A class that allows you to ignore exceptions that occurred when searching for geographic objects.
  */
-final class MuteSearchEngine implements SearchEngineInterface
+final readonly class MuteSearchEngine implements SearchEngineInterface
 {
     /**
      * MuteGeoSearch accepts a search engine whose errors must be ignored.

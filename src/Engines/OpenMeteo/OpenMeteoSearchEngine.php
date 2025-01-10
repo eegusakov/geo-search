@@ -30,9 +30,9 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
      * @param string|null $apiKey Used only for commercial use of the service API
      */
     public function __construct(
-        private ClientInterface $httpClient,
-        private MapperInterface $mapper = new ResponseFromGeoDtoMapper(),
-        private ?string $apiKey = null,
+        private readonly ClientInterface $httpClient,
+        private readonly MapperInterface $mapper = new ResponseFromGeoDtoMapper(),
+        private readonly ?string $apiKey = null,
         private array $options = [],
     ) {}
 
