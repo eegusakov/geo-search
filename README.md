@@ -49,13 +49,12 @@ Example:
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
 
 $weatherApiSearchEngine = new WeatherApiSearchEngine(
     '<API_TOKEN>',
-    new Client(),
-    new ResponseFromGeoDtoMapper()
+    new Client()
 );
 
 $geoByCity = $weatherApiSearchEngine->search('Moscow');
@@ -78,12 +77,10 @@ Example:
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
 
 $openMeteoSearchEngine = new OpenMeteoSearchEngine(
-  new Client(),
-  new ResponseFromGeoDtoMapper()
+  new Client()
 );
 
 $geoByCity = $openMeteoSearchEngine->search('Moscow');
@@ -98,27 +95,22 @@ $geoByZipCode = $openMeteoSearchEngine->search('10001');
 This library allows you to use several services at once and get the result of the first service that returned a non-empty response.
 
 ```php
-use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use GeoSearch\Engines\ChainSearchEngine;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
 
 $chainSearchEngine = new ChainSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN_1>',
-        new Client(),
-        new WeatherApiResponseFromGeoDtoMapper()
+        new Client()
     ),
     new WeatherApiSearchEngine(
         '<API_TOKEN_2>',
-        new Client(),
-        new WeatherApiResponseFromGeoDtoMapper()
+        new Client()
     ),
     new OpenMeteoSearchEngine(
         new Client(),
-        new OpenMeteoResponseFromGeoDtoMapper()
     )
 );
 
@@ -135,17 +127,15 @@ Any client compatible with PSR-3 is suitable for logging.
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
-use Eegusakov\GeoSearch\Handlers\ErrorHandler;
-use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\MuteSearchEngine;
+use GeoSearch\Handlers\ErrorHandler;
+use GeoSearch\Loggers\ConsoleLogger;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 
 $muteSearchEngine = new MuteSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN>',
-        new Client(),
-        new ResponseFromGeoDtoMapper()
+        new Client()
     ),
     new ErrorHandler(
         new ConsoleLogger()
@@ -160,18 +150,16 @@ $geo = $muteSearchEngine->search('Moscow');
 Any client compatible with PSP-16 is suitable for working with the cache. The example will use [SymfonyCache](https://symfony.com/doc/current/components/cache.html).
 
 ```php
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
+use GeoSearch\Engines\CacheSearchEngine;
 use Symfony\Component\Cache\Psr16Cache;
 use GuzzleHttp\Client;
 
 $cacheSearchEngine = new CacheSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN>',
-        new Client(),
-        new ResponseFromGeoDtoMapper()
+        new Client()
     ),
     new Psr16Cache(
         new FilesystemAdapter()
@@ -187,24 +175,21 @@ $geo = $cacheSearchEngine->search('Moscow');
 ```php
 use GuzzleHttp\Client;
 use Symfony\Component\Cache\Psr16Cache;
-use Eegusakov\GeoSearch\Handlers\ErrorHandler;
-use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
-use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
-use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
+use GeoSearch\Handlers\ErrorHandler;
+use GeoSearch\Loggers\ConsoleLogger;
+use GeoSearch\Engines\MuteSearchEngine;
+use GeoSearch\Engines\CacheSearchEngine;
+use GeoSearch\Engines\ChainSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 
 $cacheChainMuteSearchEngine = new CacheSearchEngine(
     new ChainSearchEngine(
         new MuteSearchEngine(
             new WeatherApiSearchEngine(
                 'API_TOKEN_1',
-                new Client(),
-                new WeatherApiResponseFromGeoDtoMapper()
+                new Client()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
@@ -212,8 +197,7 @@ $cacheChainMuteSearchEngine = new CacheSearchEngine(
         ),
         new MuteSearchEngine(
             new OpenMeteoSearchEngine(
-                new Client(),
-                new OpenMeteoResponseFromGeoDtoMapper()
+                new Client()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
