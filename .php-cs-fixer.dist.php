@@ -20,7 +20,7 @@ return (new \PhpCsFixer\Config())
         '@PSR12:risky' => true,
         '@PHP81Migration' => true,
         '@PHP81Migration:risky' => true,
-        '@PHPUnit84Migration:risky' => true,
+        '@PHPUnit100Migration:risky' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
 
