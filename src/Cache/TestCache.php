@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Cache;
+namespace GeoSearch\Cache;
 
 use Psr\SimpleCache\CacheInterface;
 

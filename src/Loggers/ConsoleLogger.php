@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Loggers;
+namespace GeoSearch\Loggers;
 
 use Psr\Log\LoggerInterface;
 

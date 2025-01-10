@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
 
 /**
  * The class allows you to use several engines at once to search for a geographical object.
  * In this case, the first result with a non-empty result will be returned as a response.
  */
-final class ChainSearchEngine implements SearchEngineInterface
+final readonly class ChainSearchEngine implements SearchEngineInterface
 {
     /** @var SearchEngineInterface[] $searchEngines */
     private array $searchEngines;
@@ -24,13 +24,11 @@ final class ChainSearchEngine implements SearchEngineInterface
      *     $geoSearchChain = new ChainGeoSearch(
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         ),
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         )
      *     );
      *
@@ -42,15 +40,18 @@ final class ChainSearchEngine implements SearchEngineInterface
         $this->searchEngines = $searchEngines;
     }
 
-    public function search(string $query): ?GeoDto
+    /**
+     * @return array<empty>|GeoDto[]
+     */
+    public function search(string $query): array
     {
         foreach ($this->searchEngines as $searchEngine) {
             $geo = $searchEngine->search($query);
-            if (null !== $geo) {
+            if ([] !== $geo) {
                 return $geo;
             }
         }
 
-        return null;
+        return [];
     }
 }

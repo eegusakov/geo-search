@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Dto;
+namespace GeoSearch\Dto;
 
 /**
  * The basic structure of the search engine response.

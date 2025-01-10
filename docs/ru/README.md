@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/eegusakov/geo-search)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/eegusakov/geo-search)
 [![CI](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml/badge.svg)](https://github.com/eegusakov/geo-search/actions/workflows/ci.yml)
-![GitHub issues](https://img.shields.io/github/issues/eegusakov/geo-search)
+[![PHP Version Requirement](https://img.shields.io/packagist/dependency-v/eegusakov/geo-search/php)](https://packagist.org/packages/eegusakov/geo-search)
 
 Язык: Русский, [Английский](README.md)
 
@@ -49,13 +49,11 @@ composer require eegusakov/geo-search
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 
 $weatherApiSearchEngine = new WeatherApiSearchEngine(
     '<API_TOKEN>',
-    new Client(),
-    new ResponseFromGeoDtoMapper()
+    new Client()
 );
 
 $geoByCity = $weatherApiSearchEngine->search('Москва');
@@ -78,12 +76,10 @@ $geoByZipCode = $weatherApiSearchEngine->search('90201');
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
 
 $openMeteoSearchEngine = new OpenMeteoSearchEngine(
-  new Client(),
-  new ResponseFromGeoDtoMapper()
+  new Client()
 );
 
 $geoByCity = $openMeteoSearchEngine->search('Москва');
@@ -98,27 +94,22 @@ $geoByZipCode = $openMeteoSearchEngine->search('10001');
 Данная библиотека позволяет использовать сразу несколько сервисов и получить результат первого сервиса вернувшего не пустой ответ.
 
 ```php
-use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use GeoSearch\Engines\ChainSearchEngine;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use GuzzleHttp\Client;
 
 $chainSearchEngine = new ChainSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN_1>',
-        new Client(),
-        new WeatherApiResponseFromGeoDtoMapper()
+        new Client()
     ),
     new WeatherApiSearchEngine(
         '<API_TOKEN_2>',
-        new Client(),
-        new WeatherApiResponseFromGeoDtoMapper()
+        new Client()
     ),
     new OpenMeteoSearchEngine(
-        new Client(),
-        new OpenMeteoResponseFromGeoDtoMapper()
+        new Client()
     )
 );
 
@@ -135,17 +126,15 @@ ErrorHandler обрабатывает все ошибки и записывае�
 
 ```php
 use GuzzleHttp\Client;
-use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
-use Eegusakov\GeoSearch\Handlers\ErrorHandler;
-use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
+use GeoSearch\Engines\MuteSearchEngine;
+use GeoSearch\Handlers\ErrorHandler;
+use GeoSearch\Loggers\ConsoleLogger;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 
 $muteSearchEngine = new MuteSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN>',
-        new Client(),
-        new ResponseFromGeoDtoMapper()
+        new Client()
     ),
     new ErrorHandler(
         new ConsoleLogger()
@@ -160,18 +149,16 @@ $geo = $muteSearchEngine->search('Москва');
 Для работы с кэшем подойдет любой клиент, совместимый с PSR-16. В примере будет использоваться [SymfonyCache](https://symfony.com/doc/current/components/cache.html).
 
 ```php
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
+use GeoSearch\Engines\CacheSearchEngine;
 use Symfony\Component\Cache\Psr16Cache;
 use GuzzleHttp\Client;
 
 $cacheSearchEngine = new CacheSearchEngine(
     new WeatherApiSearchEngine(
         '<API_TOKEN>',
-        new Client(),
-        new ResponseFromGeoDtoMapper()
+        new Client()
     ),
     new Psr16Cache(
         new FilesystemAdapter()
@@ -187,24 +174,21 @@ $geo = $cacheSearchEngine->search('Москва');
 ```php
 use GuzzleHttp\Client;
 use Symfony\Component\Cache\Psr16Cache;
-use Eegusakov\GeoSearch\Handlers\ErrorHandler;
-use Eegusakov\GeoSearch\Loggers\ConsoleLogger;
-use Eegusakov\GeoSearch\Engines\MuteSearchEngine;
-use Eegusakov\GeoSearch\Engines\CacheSearchEngine;
-use Eegusakov\GeoSearch\Engines\ChainSearchEngine;
+use GeoSearch\Handlers\ErrorHandler;
+use GeoSearch\Loggers\ConsoleLogger;
+use GeoSearch\Engines\MuteSearchEngine;
+use GeoSearch\Engines\CacheSearchEngine;
+use GeoSearch\Engines\ChainSearchEngine;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
-use Eegusakov\GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
-use Eegusakov\GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper as OpenMeteoResponseFromGeoDtoMapper;
-use Eegusakov\GeoSearch\Engines\WeatherApi\ResponseFromGeoDtoMapper as WeatherApiResponseFromGeoDtoMapper;
+use GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine;
+use GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine;
 
 $cacheChainMuteSearchEngine = new CacheSearchEngine(
     new ChainSearchEngine(
         new MuteSearchEngine(
             new WeatherApiSearchEngine(
                 'API_TOKEN_1',
-                new Client(),
-                new WeatherApiResponseFromGeoDtoMapper()
+                new Client()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
@@ -212,8 +196,7 @@ $cacheChainMuteSearchEngine = new CacheSearchEngine(
         ),
         new MuteSearchEngine(
             new OpenMeteoSearchEngine(
-                new Client(),
-                new OpenMeteoResponseFromGeoDtoMapper()
+                new Client()
             ),
             new ErrorHandler(
                 new ConsoleLogger()
@@ -231,8 +214,8 @@ $geo = $cacheChainMuteSearchEngine->search('Москва');
 
 ## Сотрудничество
 
-Пожалуйста, прочтите [CONTRIBUTING](CONTRIBUTING.md) для получения подробной информации о нашем кодексе поведения и процессе отправки нам запросов на слияния.
+Пожалуйста, прочтите [CONTRIBUTING](../../CONTRIBUTING.md) для получения подробной информации о нашем кодексе поведения и процессе отправки нам запросов на слияния.
 
 ## Лицензия
 
-Этот проект лицензирован по лицензии MIT - смотрите [LICENSE](LICENSE) файл для получения подробной информации
+Этот проект лицензирован по лицензии MIT - смотрите [LICENSE](../../LICENSE.md) файл для получения подробной информации

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 
 /**
  * A class that allows you to receive write and retrieve data from the cache.
  */
-final class CacheSearchEngine implements SearchEngineInterface
+final readonly class CacheSearchEngine implements SearchEngineInterface
 {
     public function __construct(
         private SearchEngineInterface $next,
@@ -21,9 +21,11 @@ final class CacheSearchEngine implements SearchEngineInterface
     ) {}
 
     /**
+     * @return array<empty>|GeoDto[]
+     *
      * @throws InvalidArgumentException
      */
-    public function search(string $query): ?GeoDto
+    public function search(string $query): array
     {
         $key = 'geo_search_' . str_replace(' ', '_', $query);
 

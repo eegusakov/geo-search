@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\SearchEngineInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Eegusakov\GeoSearch\Engines\ChainSearchEngine
  */
+#[CoversClass(ChainSearchEngine::class)]
 final class ChainSearchEngineTest extends TestCase
 {
     public function testSearchSuccess(): void
     {
         $chainSearchEngine = new ChainSearchEngine(
-            $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(
-                $expected = new GeoDto(
+            $this->mockGeoSearchEngines([]),
+            $this->mockGeoSearchEngines([]),
+            $this->mockGeoSearchEngines($expected = [
+                new GeoDto(
                     55.75,
                     37.62,
                     'Moscow',
@@ -29,10 +29,10 @@ final class ChainSearchEngineTest extends TestCase
                     'Russia',
                     'Europe/Moscow',
                     new \DateTimeImmutable('2023-07-12 0:11')
-                )
-            ),
-            $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(
+                ),
+            ]),
+            $this->mockGeoSearchEngines([]),
+            $this->mockGeoSearchEngines([
                 new GeoDto(
                     51.52,
                     -0.11,
@@ -41,8 +41,8 @@ final class ChainSearchEngineTest extends TestCase
                     'United Kingdom',
                     'Europe/London',
                     new \DateTimeImmutable('2023-07-11 22:14')
-                )
-            ),
+                ),
+            ]),
         );
 
         $actual = $chainSearchEngine->search('Moscow');
@@ -54,17 +54,17 @@ final class ChainSearchEngineTest extends TestCase
     public function testSearchEmptyResult(): void
     {
         $chainSearchEngine = new ChainSearchEngine(
-            $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(null),
-            $this->mockGeoSearchEngines(null)
+            $this->mockGeoSearchEngines([]),
+            $this->mockGeoSearchEngines([]),
+            $this->mockGeoSearchEngines([])
         );
 
         $actual = $chainSearchEngine->search('Moscow');
 
-        $this->assertNull($actual);
+        $this->assertSame([], $actual);
     }
 
-    private function mockGeoSearchEngines(?GeoDto $geo): SearchEngineInterface
+    private function mockGeoSearchEngines(array $geo): SearchEngineInterface
     {
         $mock = $this->createMock(SearchEngineInterface::class);
         $mock->method('search')->willReturn($geo);

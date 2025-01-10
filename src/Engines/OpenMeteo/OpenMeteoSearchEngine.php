@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines\OpenMeteo;
+namespace GeoSearch\Engines\OpenMeteo;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\MapperInterface;
+use GeoSearch\Interfaces\SearchEngineInterface;
 use Laminas\Diactoros\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -22,24 +23,25 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
      *
      *     $openMeteoGeoSearch = new OpenMeteoSearchEngine(
      *         new Client(),
-     *         new ResponseFromGeoDtoMapper(),
      *         '<API_TOKEN>', // Used only for commercial use of the service API
      *     )
      *
-     * @param array{lang: string} $options
+     * @param array{lang: string, count: int} $options
      * @param string|null $apiKey Used only for commercial use of the service API
      */
     public function __construct(
-        private ClientInterface $httpClient,
-        private ResponseFromGeoDtoMapper $mapper,
-        private ?string $apiKey = null,
+        private readonly ClientInterface $httpClient,
+        private readonly MapperInterface $mapper = new ResponseFromGeoDtoMapper(),
+        private readonly ?string $apiKey = null,
         private array $options = [],
     ) {}
 
     /**
+     * @return array<empty>|GeoDto[]
+     *
      * @throws ClientExceptionInterface|\Exception
      */
-    public function search(string $query): ?GeoDto
+    public function search(string $query): array
     {
         $baseUrl = $this->apiKey
             ? 'https://geocoding-customer-api.open-meteo.com/v1/search?'
@@ -47,7 +49,7 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
 
         $url = $baseUrl . http_build_query([
             'name' => $query,
-            'count' => 1,
+            'count' => $this->options['count'] ?? 1,
             'language' => $this->options['lang'] ?? 'ru',
             'format' => 'json',
         ]);
@@ -60,15 +62,15 @@ final class OpenMeteoSearchEngine implements SearchEngineInterface
         $response = $this->httpClient->sendRequest($request);
 
         if (200 !== $response->getStatusCode()) {
-            return null;
+            return [];
         }
 
         $data = json_decode($response->getBody()->getContents(), true);
 
         if (empty($data['results'])) {
-            return null;
+            return [];
         }
 
-        return $this->mapper->map($data);
+        return array_map(fn ($item) => $this->mapper->map($item), $data['results']);
     }
 }

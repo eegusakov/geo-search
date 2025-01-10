@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Engines;
+namespace GeoSearch\Engines;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
-use Eegusakov\GeoSearch\Interfaces\ErrorHandlerInterface;
-use Eegusakov\GeoSearch\Interfaces\SearchEngineInterface;
+use GeoSearch\Dto\GeoDto;
+use GeoSearch\Interfaces\ErrorHandlerInterface;
+use GeoSearch\Interfaces\SearchEngineInterface;
 
 /**
  * A class that allows you to ignore exceptions that occurred when searching for geographic objects.
  */
-final class MuteSearchEngine implements SearchEngineInterface
+final readonly class MuteSearchEngine implements SearchEngineInterface
 {
     /**
      * MuteGeoSearch accepts a search engine whose errors must be ignored.
@@ -21,8 +21,7 @@ final class MuteSearchEngine implements SearchEngineInterface
      *     $geoSearchMute = new MuteGeoSearch(
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         ),
      *         new ErrorHandler(
      *             new ConsoleLogger()
@@ -34,7 +33,10 @@ final class MuteSearchEngine implements SearchEngineInterface
         private ErrorHandlerInterface $handler
     ) {}
 
-    public function search(string $query): ?GeoDto
+    /**
+     * @return array<empty>|GeoDto[]
+     */
+    public function search(string $query): array
     {
         try {
             return $this->next->search($query);
@@ -42,6 +44,6 @@ final class MuteSearchEngine implements SearchEngineInterface
             $this->handler->handle($e);
         }
 
-        return null;
+        return [];
     }
 }

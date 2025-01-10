@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Eegusakov\GeoSearch\Interfaces;
+namespace GeoSearch\Interfaces;
 
-use Eegusakov\GeoSearch\Dto\GeoDto;
+use GeoSearch\Dto\GeoDto;
 
 /**
  * Interface describing the structure of the search engine.
@@ -13,6 +13,8 @@ interface SearchEngineInterface
 {
     /**
      * Method containing all the basic logic necessary to search for geographical objects.
+     *
+     * @return array<empty>|GeoDto[]
      */
-    public function search(string $query): ?GeoDto;
+    public function search(string $query): array;
 }
