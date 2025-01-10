@@ -13,6 +13,8 @@ interface SearchEngineInterface
 {
     /**
      * Method containing all the basic logic necessary to search for geographical objects.
+     *
+     * @return array<empty>|GeoDto[]
      */
-    public function search(string $query): ?GeoDto;
+    public function search(string $query): array;
 }

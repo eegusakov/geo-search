@@ -21,9 +21,11 @@ final class CacheSearchEngine implements SearchEngineInterface
     ) {}
 
     /**
+     * @return array<empty>|GeoDto[]
+     *
      * @throws InvalidArgumentException
      */
-    public function search(string $query): ?GeoDto
+    public function search(string $query): array
     {
         $key = 'geo_search_' . str_replace(' ', '_', $query);
 

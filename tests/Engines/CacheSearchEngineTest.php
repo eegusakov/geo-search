@@ -7,14 +7,14 @@ namespace GeoSearch\Engines;
 use GeoSearch\Cache\TestCache;
 use GeoSearch\Dto\GeoDto;
 use GeoSearch\Interfaces\SearchEngineInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 
 /**
  * @internal
- *
- * @covers \GeoSearch\Engines\CacheSearchEngine
  */
+#[CoversClass(CacheSearchEngine::class)]
 final class CacheSearchEngineTest extends TestCase
 {
     private CacheInterface $cache;
@@ -27,7 +27,7 @@ final class CacheSearchEngineTest extends TestCase
     public function testSuccess(): void
     {
         $searchEngine = $this->createMock(SearchEngineInterface::class);
-        $searchEngine->method('search')->willReturnCallback(static fn () => new GeoDto(
+        $searchEngine->method('search')->willReturnCallback(static fn () => [new GeoDto(
             55.75,
             37.62,
             'Moscow',
@@ -35,7 +35,9 @@ final class CacheSearchEngineTest extends TestCase
             'Russia',
             'Europe/Moscow',
             new \DateTimeImmutable()
-        ));
+        )]);
+
+        $searchEngine->expects($this->exactly(2))->method('search');
 
         $cacheSearchEngine = new CacheSearchEngine(
             $searchEngine,

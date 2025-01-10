@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace GeoSearch\Engines\OpenMeteo;
 
 use GeoSearch\Dto\GeoDto;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \GeoSearch\Engines\OpenMeteo\ResponseFromGeoDtoMapper
- *
  * @internal
  */
+#[CoversClass(ResponseFromGeoDtoMapper::class)]
 final class ResponseFromGeoDtoMapperTest extends TestCase
 {
     public function testSuccess(): void
@@ -38,28 +38,29 @@ final class ResponseFromGeoDtoMapperTest extends TestCase
         ];
 
         $mapper = new ResponseFromGeoDtoMapper();
-        $geo = $mapper->map($data);
+        $geo = array_map(static fn ($item) => $mapper->map($item), $data['results']);
 
-        $this->assertInstanceOf(GeoDto::class, $geo);
+        $this->assertIsArray($geo);
+        $this->assertContainsOnly(GeoDto::class, $geo);
 
-        $this->assertSame($data['results'][0]['latitude'], $geo->lat);
-        $this->assertIsFloat($geo->lat);
+        $this->assertSame($data['results'][0]['latitude'], $geo[0]->lat);
+        $this->assertIsFloat($geo[0]->lat);
 
-        $this->assertSame($data['results'][0]['longitude'], $geo->lon);
-        $this->assertIsFloat($geo->lon);
+        $this->assertSame($data['results'][0]['longitude'], $geo[0]->lon);
+        $this->assertIsFloat($geo[0]->lon);
 
-        $this->assertSame($data['results'][0]['name'], $geo->name);
-        $this->assertIsString($geo->name);
+        $this->assertSame($data['results'][0]['name'], $geo[0]->name);
+        $this->assertIsString($geo[0]->name);
 
-        $this->assertSame($data['results'][0]['admin1'], $geo->region);
-        $this->assertIsString($geo->region);
+        $this->assertSame($data['results'][0]['admin1'], $geo[0]->region);
+        $this->assertIsString($geo[0]->region);
 
-        $this->assertSame($data['results'][0]['country'], $geo->country);
-        $this->assertIsString($geo->country);
+        $this->assertSame($data['results'][0]['country'], $geo[0]->country);
+        $this->assertIsString($geo[0]->country);
 
-        $this->assertSame($data['results'][0]['timezone'], $geo->timezone);
-        $this->assertIsString($geo->timezone);
+        $this->assertSame($data['results'][0]['timezone'], $geo[0]->timezone);
+        $this->assertIsString($geo[0]->timezone);
 
-        $this->assertInstanceOf(\DateTimeImmutable::class, $geo->localtime);
+        $this->assertInstanceOf(\DateTimeImmutable::class, $geo[0]->localtime);
     }
 }

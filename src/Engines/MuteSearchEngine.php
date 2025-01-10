@@ -21,8 +21,7 @@ final class MuteSearchEngine implements SearchEngineInterface
      *     $geoSearchMute = new MuteGeoSearch(
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         ),
      *         new ErrorHandler(
      *             new ConsoleLogger()
@@ -34,7 +33,10 @@ final class MuteSearchEngine implements SearchEngineInterface
         private ErrorHandlerInterface $handler
     ) {}
 
-    public function search(string $query): ?GeoDto
+    /**
+     * @return array<empty>|GeoDto[]
+     */
+    public function search(string $query): array
     {
         try {
             return $this->next->search($query);
@@ -42,6 +44,6 @@ final class MuteSearchEngine implements SearchEngineInterface
             $this->handler->handle($e);
         }
 
-        return null;
+        return [];
     }
 }

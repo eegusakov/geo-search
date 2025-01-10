@@ -20,15 +20,15 @@ final class ResponseFromGeoDtoMapper implements MapperInterface
     public function map(mixed $data): GeoDto
     {
         return new GeoDto(
-            lat: $data['results'][0]['latitude'],
-            lon: $data['results'][0]['longitude'],
-            name: $data['results'][0]['name'],
-            region: $data['results'][0]['admin1'],
-            country: $data['results'][0]['country'],
-            timezone: $data['results'][0]['timezone'],
+            lat: $data['latitude'],
+            lon: $data['longitude'],
+            name: $data['name'],
+            region: $data['admin1'] ?? '',
+            country: $data['country'],
+            timezone: $data['timezone'],
             localtime: new \DateTimeImmutable(
                 'now',
-                new \DateTimeZone($data['results'][0]['timezone'])
+                new \DateTimeZone($data['timezone'])
             ),
         );
     }

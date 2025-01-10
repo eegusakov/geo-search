@@ -6,15 +6,15 @@ namespace GeoSearch\Engines\OpenMeteo;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\StreamFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 /**
- * @covers \GeoSearch\Engines\OpenMeteo\OpenMeteoSearchEngine
- *
  * @internal
  */
+#[CoversClass(OpenMeteoSearchEngine::class)]
 final class OpenMeteoSearchEngineTest extends TestCase
 {
     private StreamFactoryInterface $streamFactory;
@@ -63,7 +63,7 @@ final class OpenMeteoSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('Moscow');
 
-        $this->assertNotNull($geo);
+        $this->assertTrue([] !== $geo);
     }
 
     public function testSuccessCommercial(): void
@@ -106,7 +106,7 @@ final class OpenMeteoSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('Moscow');
 
-        $this->assertNotNull($geo);
+        $this->assertTrue([] !== $geo);
     }
 
     public function testNotFound(): void
@@ -132,7 +132,7 @@ final class OpenMeteoSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('gjdfnvks');
 
-        $this->assertNull($geo);
+        $this->assertSame([], $geo);
     }
 
     public function testFoundEmpty(): void
@@ -155,6 +155,6 @@ final class OpenMeteoSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('Moscow');
 
-        $this->assertNull($geo);
+        $this->assertSame([], $geo);
     }
 }

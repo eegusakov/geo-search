@@ -6,15 +6,15 @@ namespace GeoSearch\Engines\WeatherApi;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\StreamFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
 /**
  * @internal
- *
- * @covers \GeoSearch\Engines\WeatherApi\WeatherApiSearchEngine
  */
+#[CoversClass(WeatherApiSearchEngine::class)]
 final class WeatherApiSearchEngineTest extends TestCase
 {
     private StreamFactoryInterface $streamFactory;
@@ -84,7 +84,7 @@ final class WeatherApiSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('gjdfnvks');
 
-        $this->assertNull($geo);
+        $this->assertSame([], $geo);
     }
 
     public function testFoundEmpty(): void
@@ -108,6 +108,6 @@ final class WeatherApiSearchEngineTest extends TestCase
 
         $geo = $searchEngine->search('Moscow');
 
-        $this->assertNull($geo);
+        $this->assertSame([], $geo);
     }
 }

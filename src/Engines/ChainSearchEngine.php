@@ -24,13 +24,11 @@ final class ChainSearchEngine implements SearchEngineInterface
      *     $geoSearchChain = new ChainGeoSearch(
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         ),
      *         new WeatherApiGeoSearch(
      *             '<API_TOKEN>',
-     *             new Client(),
-     *             new ResponseFromGeoDtoMapper()
+     *             new Client()
      *         )
      *     );
      *
@@ -42,15 +40,18 @@ final class ChainSearchEngine implements SearchEngineInterface
         $this->searchEngines = $searchEngines;
     }
 
-    public function search(string $query): ?GeoDto
+    /**
+     * @return array<empty>|GeoDto[]
+     */
+    public function search(string $query): array
     {
         foreach ($this->searchEngines as $searchEngine) {
             $geo = $searchEngine->search($query);
-            if (null !== $geo) {
+            if ([] !== $geo) {
                 return $geo;
             }
         }
 
-        return null;
+        return [];
     }
 }
