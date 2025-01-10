@@ -11,18 +11,24 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-    
-      - uses: php-actions/composer@v6
-      
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          version: "10.0"
-          bootstrap: vendor/autoload.php
-          args: --coverage-text
-          php_version: "8.2"
+          php-version: "8.2"
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Migrate PHPUnit configuration
+        run: php vendor/bin/phpunit --migrate-configuration
+
+      - name: Run PHPUnit Tests
+        run: php vendor/bin/phpunit --coverage-text
